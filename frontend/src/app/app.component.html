@@ -3,6 +3,11 @@
 <input [(ngModel)]="conteudoMensagem" placeholder="Digite a mensagem" />
 <button (click)="enviar()">Enviar</button>
 
+<!-- Mensagem de validação -->
+<div *ngIf="mensagemErro" style="color: red; margin-top: 5px">
+  {{ mensagemErro }}
+</div>
+
 <ul>
   <li *ngFor="let n of notificacoes">
     {{ n.mensagemId }} - {{ n.conteudoMensagem }} - {{ n.status }}

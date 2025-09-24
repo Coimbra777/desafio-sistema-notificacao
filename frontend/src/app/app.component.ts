@@ -14,12 +14,18 @@ interface Notificacao {
 })
 export class AppComponent {
   conteudoMensagem = "";
+  mensagemErro: string = "";
   notificacoes: Notificacao[] = [];
 
   constructor(private notificationService: NotificationService) {}
 
   enviar() {
-    if (!this.conteudoMensagem.trim()) return;
+    if (!this.conteudoMensagem || !this.conteudoMensagem.trim()) {
+      this.mensagemErro = "Conteudo da mensagem obrigatório";
+      return;
+    }
+
+    this.mensagemErro = "";
 
     const mensagemId = uuidv4();
     const notificacao: Notificacao = {
@@ -33,7 +39,18 @@ export class AppComponent {
 
     this.notificationService
       .sendNotification(mensagemId, notificacao.conteudoMensagem)
-      .subscribe(() => this.pollStatus(mensagemId));
+      .subscribe({
+        next: () => this.pollStatus(mensagemId),
+        error: (err) => {
+          console.log(err);
+
+          this.mensagemErro =
+            err?.error?.error || "Erro ao enviar notificação.";
+          this.notificacoes = this.notificacoes.filter(
+            (n) => n.mensagemId !== mensagemId
+          );
+        },
+      });
   }
 
   pollStatus(mensagemId: string) {
