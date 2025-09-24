@@ -9,7 +9,7 @@ async function bootstrap() {
   //     methods: "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS",
   //     credentials: true,
   //   });
-  await app.listen(3002);
+  await app.listen(3000);
 
   console.log(`Backend running on http://localhost:3002/api`);
 }
