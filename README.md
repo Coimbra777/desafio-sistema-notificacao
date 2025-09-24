@@ -9,7 +9,7 @@ git clone https://github.com/Coimbra777/desafio-sistema-notificacao
 ### Entre no diretório e abra no VSCode
 
 ```sh
-cd notifica-vr
+cd desafio-sistema-notificacao
 ```
 
 ### Suba os containers do projeto
